@@ -1,4 +1,4 @@
-Agents for SkeekS CMS
+Marketplace for SkeekS CMS
 ===================================
 
 Installation
