@@ -8,8 +8,8 @@
 /* @var $this yii\web\View */
 /* @var $models \skeeks\cms\models\CmsExtension[] */
 /* @var $message string */
-use \skeeks\cms\components\marketplace\models\PackageModel;
-use \skeeks\cms\models\CmsExtension;
+use \skeeks\cms\marketplace\models\PackageModel;
+use \skeeks\cms\marketplace\models\CmsExtension;
 
 $self = $this;
 ?>
@@ -58,27 +58,6 @@ $self = $this;
 
                 'format' => 'raw',
                 'attribute' => 'version'
-            ],
-
-            [
-                'class' => \yii\grid\DataColumn::className(),
-                'value' => function(CmsExtension $model) use ($self)
-                {
-
-                    if ($model->canDelete())
-                    {
-                        return \yii\helpers\Html::a('<i class="glyphicon glyphicon-remove"></i> ' . \Yii::t('app','Delete'), $model->controllUrl, [
-                            'class' => 'btn btn-danger btn-xs',
-                            'data-pjax' => '0'
-                        ]);
-                    } else
-                    {
-                        return " — ";
-                    }
-                },
-
-                'format' => 'raw',
-                'label' => \Yii::t('app','Possible actions')
             ],
         ]
     ])?>

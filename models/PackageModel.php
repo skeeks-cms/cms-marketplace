@@ -39,7 +39,7 @@ class PackageModel extends Model
      */
     static public function fetchByCode($packagistCode)
     {
-        $result = \Yii::$app->cmsMarkeplace->fetch(['packages/view-by-code', [
+        $result = \Yii::$app->cmsMarketplace->fetch(['packages/view-by-code', [
             'packagistCode' => (string) $packagistCode
         ]]);
 
@@ -62,7 +62,7 @@ class PackageModel extends Model
         //Коды установленных пакетов
         $extensionCodes = ArrayHelper::map(\Yii::$app->extensions, 'name', 'name');
 
-        $result = \Yii::$app->cmsMarkeplace->fetch(['packages', [
+        $result = \Yii::$app->cmsMarketplace->fetch(['packages', [
             //'codes'  => $extensionCodes,
             'per-page'      => 200
         ]]);

@@ -8,7 +8,7 @@
 /* @var $this yii\web\View */
 /* @var $packageModel PackageModel */
 
-use \skeeks\cms\components\marketplace\models\PackageModel;
+use \skeeks\cms\marketplace\models\PackageModel;
 use \skeeks\cms\models\CmsExtension;
 $self = $this;
 
@@ -24,7 +24,7 @@ $self = $this;
             ])?>
 
         <? else: ?>
-            <?= \Yii::t('app','The extension is not found') ?>
+            <?= \Yii::t('skeeks/marketplace','The extension is not found') ?>
         <? endif; ?>
 
     </div>
@@ -34,12 +34,12 @@ $self = $this;
           'class' => 'alert-info',
       ]
     ]); ?>
-        <p><?= \Yii::t('app','You can choose the suitable solution for your project and install it.') ?></p>
-        <p><?= \Yii::t('app','Future versions will be integrated {market} here. For now, simply click the link below.',['market' => \Yii::t('app','Marketplace')])?></p>
+        <p><?= \Yii::t('skeeks/marketplace','You can choose the suitable solution for your project and install it.') ?></p>
+        <p><?= \Yii::t('skeeks/marketplace','Future versions will be integrated {market} here. For now, simply click the link below.',['market' => \Yii::t('skeeks/marketplace','Marketplace')])?></p>
     <? \yii\bootstrap\Alert::end(); ?>
 
     <div class="sx-marketplace">
-        <a href="http://marketplace.cms.skeeks.com/" target="_blank">Marketplace.CMS.SkeekS.com</a> — <?=\Yii::t('app','catalog of available solutions')?>
+        <a href="http://marketplace.cms.skeeks.com/" target="_blank">Marketplace.CMS.SkeekS.com</a> — <?=\Yii::t('skeeks/marketplace','catalog of available solutions')?>
     </div>
 
 <?

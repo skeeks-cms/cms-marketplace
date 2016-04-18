@@ -1,14 +1,12 @@
 <?php
 /**
- * AdminFileManagerController
- *
  * @author Semenov Alexander <semenov@skeeks.com>
  * @link http://skeeks.com/
  * @copyright 2010-2014 SkeekS (Sx)
  * @date 06.02.2015
  * @since 1.0.0
  */
-namespace skeeks\cms\components\marketplace\controllers;
+namespace skeeks\cms\marketplace\controllers;
 
 use skeeks\cms\components\marketplace\models\PackageModel;
 use skeeks\cms\helpers\UrlHelper;
@@ -21,7 +19,7 @@ use skeeks\cms\models\searchs\User as UserSearch;
 
 /**
  * Class AdminMarketplaceController
- * @package skeeks\cms\components\marketplace\controllers
+ * @package skeeks\cms\marketplace\controllers
  */
 class AdminMarketplaceController extends AdminController
 {
