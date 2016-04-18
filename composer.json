@@ -1,0 +1,28 @@
+{
+	"name": "skeeks/cms-marketplace",
+	"description": "Marketplace for SkeekS CMS",
+	"keywords": ["yii", "skeeks", "framework", "component", "marketplace"],
+    "homepage": "http://cms.skeeks.com/",
+	"type": "yii2-extension",
+	"license": "BSD-3-Clause",
+	"support": {
+        "issues": "http://skeeks.com/",
+        "wiki": "http://en.cms.skeeks.com/docs/",
+        "source": "https://github.com/skeeks-cms/cms-marketplace"
+    },
+	"authors": [
+		{
+			"name": "Semenov Alexander",
+			"email": "semenov@skeeks.com"
+		}
+	],
+	"require": {
+		"skeeks/cms": "*",
+		"skeeks/yii2-curl": "*",
+	},
+    "autoload": {
+        "psr-4": {
+            "skeeks\\cms\\marketplace\\": ""
+        }
+    }
+}
