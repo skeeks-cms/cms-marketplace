@@ -9,7 +9,7 @@
  * @date 10.09.2015
  */
 namespace yii\web;
-use skeeks\cms\agent\CmsMarketplaceComponent;
+use skeeks\cms\marketplace\CmsMarketplaceComponent;
 
 /**
  * @property CmsMarketplaceComponent    $cmsMarketplace

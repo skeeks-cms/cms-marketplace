@@ -84,7 +84,7 @@ class CmsMarketplaceComponent extends Component
 
             $data = array_merge($data, [
                 'sx-serverName' => \Yii::$app->request->serverName,
-                'sx-version'    => \Yii::$app->cms->extension->version,
+                'sx-version'    => \Yii::$app->cms->descriptor->version,
                 'sx-email'      => \Yii::$app->cms->adminEmail,
             ]);
             if ($data)
@@ -115,9 +115,12 @@ class CmsMarketplaceComponent extends Component
         try
         {
             $url = $this->getRequestUrl($route);
+            /*\Yii::info("Api request: " . $method . ": " . $url, self::className());*/
             $curl->httpRequest($method, $url);
         } catch (\Exception $e)
-        {}
+        {
+            \Yii::error($e->getMessage(), self::className());
+        }
 
 
         return $curl;
@@ -131,6 +134,7 @@ class CmsMarketplaceComponent extends Component
     public function fetch($route)
     {
         $curl = $this->request(Curl::METHOD_GET, $route);
+
         if ($curl->responseCode == 200 && $curl->response)
         {
             return Json::decode($curl->response);
