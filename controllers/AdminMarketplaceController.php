@@ -62,6 +62,8 @@ class AdminMarketplaceController extends AdminController
 
     public function actionInstall()
     {
+        $packageModel = null;
+
         if ($packagistCode = \Yii::$app->request->get('packagistCode'))
         {
             $packageModel = PackageModel::fetchByCode($packagistCode);

@@ -20,7 +20,7 @@ $models = CmsExtension::fetchAllWhithMarketplace();
 $self = $this;
 ?>
 
-<? if ($message) : ?>
+<? if (@$message) : ?>
     <?
         \yii\bootstrap\Alert::begin([
             'options' => [
