@@ -67,6 +67,7 @@ class CmsMarketplaceComponent extends Component
      */
     public function getRequestUrl($route)
     {
+        $data = [];
         $url = $this->url;
 
         if (is_string($route))
@@ -74,7 +75,11 @@ class CmsMarketplaceComponent extends Component
             $url = $this->url . $route;
         } else if (is_array($route))
         {
-            list($route, $data) = $route;
+            $route = $route[0];
+            if (isset($route[1]))
+            {
+                $data = $route[1];
+            }
             $url = $this->url . $route;
 
             if (!$data || !is_array($data))
@@ -83,10 +88,11 @@ class CmsMarketplaceComponent extends Component
             }
 
             $data = array_merge($data, [
-                'sx-serverName' => \Yii::$app->request->serverName,
-                'sx-version'    => \Yii::$app->cms->descriptor->version,
-                'sx-email'      => \Yii::$app->cms->adminEmail,
+                'sx-serverName' => \Yii::$app->request ? \Yii::$app->request->serverName : "",
+                'sx-version'    => (\Yii::$app->cms && \Yii::$app->cms->descriptor) ? \Yii::$app->cms->descriptor->version : "",
+                'sx-email'      => (\Yii::$app->cms && \Yii::$app->cms->adminEmail) ? \Yii::$app->cms->adminEmail : "",
             ]);
+
             if ($data)
             {
                 $url .= '?' . http_build_query($data);
@@ -148,7 +154,7 @@ class CmsMarketplaceComponent extends Component
      */
     public function getInfo()
     {
-        $key = 'test';
+        $key = 'sx-cms-info';
 
         $result = \Yii::$app->cache->get($key);
         if ($result === false)
