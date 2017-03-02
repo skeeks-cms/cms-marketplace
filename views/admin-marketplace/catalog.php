@@ -39,7 +39,7 @@ $self = $this;
     <? \yii\bootstrap\Alert::end(); ?>
 
     <div class="sx-marketplace">
-        <a href="http://marketplace.cms.skeeks.com/" target="_blank">Marketplace.CMS.SkeekS.com</a> — <?=\Yii::t('skeeks/marketplace','catalog of available solutions')?>
+        <a href="https://cms.skeeks.com/marketplace" target="_blank">cms.SkeekS.com/marketplace</a> — <?=\Yii::t('skeeks/marketplace','catalog of available solutions')?>
     </div>
 
 <?

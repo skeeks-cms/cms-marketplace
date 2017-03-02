@@ -26,7 +26,7 @@ class CmsMarketplaceComponent extends Component
 {
     const RESPONSE_FORMAT_JSON = 'json';
 
-    public $schema          = "http";
+    public $schema          = "https";
     public $host            = "api.cms.skeeks.com";
     public $version         = "v1";
 
@@ -52,7 +52,7 @@ class CmsMarketplaceComponent extends Component
     /**
      * Базовый путь к апи, с версией
      *
-     * Пример http://cms.skeeks.com/
+     * Пример https://api.cms.skeeks.com/
      *
      * @return string
      */
