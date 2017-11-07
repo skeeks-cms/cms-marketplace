@@ -24,5 +24,11 @@
         "psr-4": {
             "skeeks\\cms\\marketplace\\": ""
         }
+    },
+    "extra": {
+        "config-plugin": {
+            "web": "config/main.php",
+            "console": "config/main-console.php"
+        }
     }
 }
