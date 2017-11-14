@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+2.0.0-alpha.pre
+-----------------
+ * Change dir to src
+ 
 1.2.0
 -----------------
  * Using composer-config-plugin

@@ -22,13 +22,12 @@
 	},
     "autoload": {
         "psr-4": {
-            "skeeks\\cms\\marketplace\\": ""
+            "skeeks\\cms\\marketplace\\": "src/"
         }
     },
     "extra": {
         "config-plugin": {
-            "web": "config/main.php",
-            "console": "config/main-console.php"
+            "web": "src/config/web.php",
         }
     }
 }
