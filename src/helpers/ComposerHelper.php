@@ -5,7 +5,9 @@
  * @copyright 2010 SkeekS (СкикС)
  * @date 29.06.2015
  */
+
 namespace skeeks\cms\marketplace\helpers;
+
 use skeeks\cms\components\imaging\Filter;
 use yii\base\Component;
 use yii\helpers\ArrayHelper;
@@ -16,10 +18,10 @@ use yii\helpers\ArrayHelper;
  * @property string $homepage
  * @property string $type
  * @property string $license
- * @property array  $support
- * @property array  $keywords
- * @property array  $authors
- * @property array  $require
+ * @property array $support
+ * @property array $keywords
+ * @property array $authors
+ * @property array $require
  *
  * Class ComposerHelper
  * @package skeeks\cms\marketplace\helpers
@@ -30,16 +32,17 @@ class ComposerHelper extends Component
      * @var array
      */
     public $data = [];
-    
+
     public function init()
-    {}
+    {
+    }
 
     /**
      * @return string
      */
     public function getName()
     {
-        return (string) ArrayHelper::getValue($this->data, 'name');
+        return (string)ArrayHelper::getValue($this->data, 'name');
     }
 
     /**
@@ -47,7 +50,7 @@ class ComposerHelper extends Component
      */
     public function getDescription()
     {
-        return (string) ArrayHelper::getValue($this->data, 'description');
+        return (string)ArrayHelper::getValue($this->data, 'description');
     }
 
     /**
@@ -55,7 +58,7 @@ class ComposerHelper extends Component
      */
     public function getKeywords()
     {
-        return (array) ArrayHelper::getValue($this->data, 'keywords');
+        return (array)ArrayHelper::getValue($this->data, 'keywords');
     }
 
     /**
@@ -63,7 +66,7 @@ class ComposerHelper extends Component
      */
     public function getHomepage()
     {
-        return (string) ArrayHelper::getValue($this->data, 'homepage');
+        return (string)ArrayHelper::getValue($this->data, 'homepage');
     }
 
     /**
@@ -71,7 +74,7 @@ class ComposerHelper extends Component
      */
     public function getType()
     {
-        return (string) ArrayHelper::getValue($this->data, 'type');
+        return (string)ArrayHelper::getValue($this->data, 'type');
     }
 
     /**
@@ -79,7 +82,7 @@ class ComposerHelper extends Component
      */
     public function getLicense()
     {
-        return (string) ArrayHelper::getValue($this->data, 'license');
+        return (string)ArrayHelper::getValue($this->data, 'license');
     }
 
     /**
@@ -87,7 +90,7 @@ class ComposerHelper extends Component
      */
     public function getSupport()
     {
-        return (array) ArrayHelper::getValue($this->data, 'support');
+        return (array)ArrayHelper::getValue($this->data, 'support');
     }
 
     /**
@@ -95,7 +98,7 @@ class ComposerHelper extends Component
      */
     public function getAuthors()
     {
-        return (array) ArrayHelper::getValue($this->data, 'authors');
+        return (array)ArrayHelper::getValue($this->data, 'authors');
     }
 
     /**
@@ -103,6 +106,6 @@ class ComposerHelper extends Component
      */
     public function getRequire()
     {
-        return (array) ArrayHelper::getValue($this->data, 'require');
+        return (array)ArrayHelper::getValue($this->data, 'require');
     }
 }

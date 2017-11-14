@@ -8,7 +8,7 @@
 /* @var $this yii\web\View */
 /* @var $model CmsExtension */
 
-ini_set("memory_limit","256M");
+ini_set("memory_limit", "256M");
 set_time_limit(0);
 
 use \skeeks\cms\marketplace\models\PackageModel;
@@ -22,17 +22,17 @@ $self = $this;
 
 <? if (@$message) : ?>
     <?
-        \yii\bootstrap\Alert::begin([
-            'options' => [
-              'class' => 'alert-info',
-          ]
-        ]);
+    \yii\bootstrap\Alert::begin([
+        'options' => [
+            'class' => 'alert-info',
+        ]
+    ]);
     ?>
-        <?= $message; ?>
+    <?= $message; ?>
     <? \yii\bootstrap\Alert::end(); ?>
 
 <? endif; ?>
-<? if ($models) :  ?>
+<? if ($models) : ?>
     <?= \skeeks\cms\modules\admin\widgets\GridView::widget([
         'dataProvider' => (new \yii\data\ArrayDataProvider([
             'allModels' => $models,
@@ -42,31 +42,29 @@ $self = $this;
         ])),
         //'layout' => "{summary}\n{items}\n{pager}",
         'columns' =>
-        [
             [
-                'class' => \yii\grid\DataColumn::className(),
-                'value' => function(CmsExtension $model) use ($self)
-                {
-                    return $self->render('_image-column', [
-                        'model' => $model
-                    ]);
+                [
+                    'class' => \yii\grid\DataColumn::className(),
+                    'value' => function (CmsExtension $model) use ($self) {
+                        return $self->render('_image-column', [
+                            'model' => $model
+                        ]);
 
-                },
-                'format' => 'raw'
-            ],
+                    },
+                    'format' => 'raw'
+                ],
 
-            [
-                'class' => \yii\grid\DataColumn::className(),
-                'value' => function(CmsExtension $model) use ($self)
-                {
-                    return $model->version;
-                },
+                [
+                    'class' => \yii\grid\DataColumn::className(),
+                    'value' => function (CmsExtension $model) use ($self) {
+                        return $model->version;
+                    },
 
-                'format' => 'raw',
-                'attribute' => 'version'
-            ],
-        ]
-    ])?>
+                    'format' => 'raw',
+                    'attribute' => 'version'
+                ],
+            ]
+    ]) ?>
 <? endif; ?>
 
 

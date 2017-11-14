@@ -6,10 +6,12 @@
  * @date 24.06.2015
  */
 /* @var $this yii\web\View */
+
 /* @var $packageModel PackageModel */
 
 use \skeeks\cms\marketplace\models\PackageModel;
 use \skeeks\cms\models\CmsExtension;
+
 $self = $this;
 
 ?>
@@ -19,31 +21,34 @@ $self = $this;
 
         <? if ($packageModel = PackageModel::fetchByCode($code)) : ?>
 
-             <?= $this->render('catalog-package', [
+            <?= $this->render('catalog-package', [
                 'packageModel' => $packageModel
-            ])?>
+            ]) ?>
 
         <? else: ?>
-            <?= \Yii::t('skeeks/marketplace','The extension is not found') ?>
+            <?= \Yii::t('skeeks/marketplace', 'The extension is not found') ?>
         <? endif; ?>
 
     </div>
 <? else : ?>
     <? \yii\bootstrap\Alert::begin([
         'options' => [
-          'class' => 'alert-info',
-      ]
+            'class' => 'alert-info',
+        ]
     ]); ?>
-        <p><?= \Yii::t('skeeks/marketplace','You can choose the suitable solution for your project and install it.') ?></p>
-        <p><?= \Yii::t('skeeks/marketplace','Future versions will be integrated {market} here. For now, simply click the link below.',['market' => \Yii::t('skeeks/marketplace','Marketplace')])?></p>
+    <p><?= \Yii::t('skeeks/marketplace', 'You can choose the suitable solution for your project and install it.') ?></p>
+    <p><?= \Yii::t('skeeks/marketplace',
+            'Future versions will be integrated {market} here. For now, simply click the link below.',
+            ['market' => \Yii::t('skeeks/marketplace', 'Marketplace')]) ?></p>
     <? \yii\bootstrap\Alert::end(); ?>
 
     <div class="sx-marketplace">
-        <a href="https://cms.skeeks.com/marketplace" target="_blank">cms.SkeekS.com/marketplace</a> — <?=\Yii::t('skeeks/marketplace','catalog of available solutions')?>
+        <a href="https://cms.skeeks.com/marketplace" target="_blank">cms.SkeekS.com/marketplace</a>
+        — <?= \Yii::t('skeeks/marketplace', 'catalog of available solutions') ?>
     </div>
 
-<?
-$this->registerCss(<<<CSS
+    <?
+    $this->registerCss(<<<CSS
 .sx-marketplace
 {
     text-align: center;
@@ -56,8 +61,8 @@ $this->registerCss(<<<CSS
         color: #e74c3c;
     }
 CSS
-);
-?>
+    );
+    ?>
 
 <? endif; ?>
 

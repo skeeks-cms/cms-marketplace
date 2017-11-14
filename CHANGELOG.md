@@ -3,6 +3,7 @@ CHANGELOG
 
 2.0.0-alpha.pre
 -----------------
+ * Code style
  * Change dir to src
  
 1.2.0

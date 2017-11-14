@@ -5,6 +5,7 @@
  * @copyright 2010 SkeekS (СкикС)
  * @date 25.06.2015
  */
+
 namespace skeeks\cms\marketplace\models;
 
 use skeeks\cms\marketplace\helpers\ComposerHelper;
@@ -17,33 +18,33 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
 /**
- * @property string                 $packagistUrl
- * @property ComposerHelper         $composer
- * @property string                 $controllUrl
- * @property UrlHelper              $adminUrl
- * @property string                 $changeLog
- * @property string                 $readme
+ * @property string $packagistUrl
+ * @property ComposerHelper $composer
+ * @property string $controllUrl
+ * @property UrlHelper $adminUrl
+ * @property string $changeLog
+ * @property string $readme
  *
  * Class CmsExtension
  * @package skeeks\cms\models
  */
 class CmsExtension extends Model
 {
-    public static $extensions       = [];
-    public static $coreExtensions   = [];
+    public static $extensions = [];
+    public static $coreExtensions = [];
 
-    public $name        = '';
-    public $version     = '';
+    public $name = '';
+    public $version = '';
     /**
      * @var array
      */
-    public $alias       = [];
+    public $alias = [];
 
 
     /**
      * @var PackageModel
      */
-    public $marketplacePackage  = null;
+    public $marketplacePackage = null;
 
     /**
      * @param $name
@@ -53,11 +54,9 @@ class CmsExtension extends Model
     {
         $extension = ArrayHelper::getValue(self::$extensions, $name);
 
-        if (!$extension || (!$extension instanceof static) )
-        {
+        if (!$extension || (!$extension instanceof static)) {
             $data = ArrayHelper::getValue(\Yii::$app->extensions, $name);
-            if (!$data)
-            {
+            if (!$data) {
                 return null;
             }
 
@@ -76,10 +75,8 @@ class CmsExtension extends Model
     {
         $result = [];
 
-        if (\Yii::$app->extensions)
-        {
-            foreach (\Yii::$app->extensions as $name => $extensionData)
-            {
+        if (\Yii::$app->extensions) {
+            foreach (\Yii::$app->extensions as $name => $extensionData) {
                 $result[$name] = static::getInstance($name);
             }
         }
@@ -93,14 +90,12 @@ class CmsExtension extends Model
      */
     static public function fetchAllWhithMarketplace()
     {
-        $result     = self::fetchAll();
+        $result = self::fetchAll();
 
-        $packages   = PackageModel::fetchInstalls();
+        $packages = PackageModel::fetchInstalls();
 
-        foreach ($result as $name => $extension)
-        {
-            if ($model = ArrayHelper::getValue($packages, $name))
-            {
+        foreach ($result as $name => $extension) {
+            if ($model = ArrayHelper::getValue($packages, $name)) {
                 $extension->marketplacePackage = $model;
             }
         }
@@ -111,9 +106,9 @@ class CmsExtension extends Model
     public function attributeLabels()
     {
         return array_merge(parent::attributeLabels(), [
-            'name'      => \Yii::t('app','Name'),
-            'version'   => \Yii::t('app','Installed version'),
-            'alias'     => \Yii::t('app','Aliases'),
+            'name' => \Yii::t('app', 'Name'),
+            'version' => \Yii::t('app', 'Installed version'),
+            'alias' => \Yii::t('app', 'Aliases'),
         ]);
     }
 
@@ -127,8 +122,7 @@ class CmsExtension extends Model
     public function getFilePath($filePath)
     {
         $composerFiles = [];
-        foreach ($this->alias as $name => $path)
-        {
+        foreach ($this->alias as $name => $path) {
             $composerFiles[] = $path . '/' . $filePath;
         }
 

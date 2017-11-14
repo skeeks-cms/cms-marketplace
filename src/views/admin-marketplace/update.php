@@ -8,14 +8,14 @@
 /* @var $this yii\web\View */
 /* @var string $packagistCode */
 /* @var $packageModel PackageModel */
-$packageModel = \skeeks\cms\marketplace\models\PackageModel::fetchByCode('skeeks/cms');
+/*$packageModel = \skeeks\cms\marketplace\models\PackageModel::fetchByCode('skeeks/cms');*/
 ?>
 
 <div id="sx-search" style="margin-bottom: 10px;">
-    <p><b><a data-pjax="0" target="_blank" href="<?= $packageModel->url; ?>"><?=\Yii::t('skeeks/marketplace','{yii} Version',['yii' => 'SkeekS CMS'])?></a>: </b> <?= \Yii::$app->cms->descriptor->version; ?></p>
-    <p><b><?=\Yii::t('skeeks/marketplace','{yii} Version',['yii' => 'Yii'])?>: </b> <?= Yii::getVersion(); ?></p>
+    <!--<p><b><a data-pjax="0" target="_blank" href="<? /*= $packageModel->url; */ ?>"><? /*=\Yii::t('skeeks/marketplace','{yii} Version',['yii' => 'SkeekS CMS'])*/ ?></a>: </b> <? /*= \Yii::$app->cms->descriptor->version; */ ?></p>-->
+    <p><b><?= \Yii::t('skeeks/marketplace', '{yii} Version', ['yii' => 'Yii']) ?>: </b> <?= Yii::getVersion(); ?></p>
 </div>
-<hr />
+<hr/>
 <p>
     Для обновления проекта воспользуйтесь мануалом:
     <a href="http://dev.cms.skeeks.com/docs/dev/ustanovka-nastroyka-konfigurirov/obnovlenie" target="_blank">

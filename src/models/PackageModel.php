@@ -5,7 +5,9 @@
  * @copyright 2010 SkeekS (СкикС)
  * @date 24.06.2015
  */
+
 namespace skeeks\cms\marketplace\models;
+
 use skeeks\cms\helpers\UrlHelper;
 use yii\base\Component;
 use yii\base\Model;
@@ -38,12 +40,14 @@ class PackageModel extends Model
      */
     static public function fetchByCode($packagistCode)
     {
-        $result = \Yii::$app->cmsMarketplace->fetch(['packages/view-by-code', [
-            'packagistCode' => (string) $packagistCode
-        ]]);
+        $result = \Yii::$app->cmsMarketplace->fetch([
+            'packages/view-by-code',
+            [
+                'packagistCode' => (string)$packagistCode
+            ]
+        ]);
 
-        if (!$result)
-        {
+        if (!$result) {
             return null;
         }
 
@@ -51,6 +55,7 @@ class PackageModel extends Model
             'apiData' => $result
         ]);
     }
+
     /**
      * Установленные пакеты
      *
@@ -61,19 +66,20 @@ class PackageModel extends Model
         //Коды установленных пакетов
         $extensionCodes = ArrayHelper::map(\Yii::$app->extensions, 'name', 'name');
 
-        $result = \Yii::$app->cmsMarketplace->fetch(['packages', [
-            //'codes'  => $extensionCodes,
-            'per-page'      => 200
-        ]]);
+        $result = \Yii::$app->cmsMarketplace->fetch([
+            'packages',
+            [
+                //'codes'  => $extensionCodes,
+                'per-page' => 200
+            ]
+        ]);
 
         $items = ArrayHelper::getValue($result, 'items');
 
         $resultModels = [];
 
-        if ($items)
-        {
-            foreach ($items as $data)
-            {
+        if ($items) {
+            foreach ($items as $data) {
                 $model = new static([
                     'apiData' => $data
                 ]);
@@ -92,8 +98,7 @@ class PackageModel extends Model
      */
     public function __get($name)
     {
-        if (array_key_exists($name, $this->apiData))
-        {
+        if (array_key_exists($name, $this->apiData)) {
             return ArrayHelper::getValue($this->apiData, $name);
         }
 
@@ -105,7 +110,7 @@ class PackageModel extends Model
      */
     public function getPackagistCode()
     {
-        return (string) ArrayHelper::getValue($this->apiData, 'related.packagist_code');
+        return (string)ArrayHelper::getValue($this->apiData, 'related.packagist_code');
     }
 
     /**
@@ -113,7 +118,7 @@ class PackageModel extends Model
      */
     public function getPackagistUrl()
     {
-        return (string) 'https://packagist.org/packages/' . $this->packagistCode;
+        return (string)'https://packagist.org/packages/' . $this->packagistCode;
     }
 
     /**
@@ -121,7 +126,7 @@ class PackageModel extends Model
      */
     public function getSupport()
     {
-        return (string) ArrayHelper::getValue($this->apiData, 'related.support');
+        return (string)ArrayHelper::getValue($this->apiData, 'related.support');
     }
 
     /**
@@ -129,7 +134,7 @@ class PackageModel extends Model
      */
     public function getInstallHelp()
     {
-        return (string) ArrayHelper::getValue($this->apiData, 'related.install');
+        return (string)ArrayHelper::getValue($this->apiData, 'related.install');
     }
 
     /**
@@ -137,14 +142,15 @@ class PackageModel extends Model
      */
     public function getDemoUrl()
     {
-        return (string) ArrayHelper::getValue($this->apiData, 'related.demo_url');
+        return (string)ArrayHelper::getValue($this->apiData, 'related.demo_url');
     }
+
     /**
      * @return string
      */
     public function getVideoUrl()
     {
-        return (string) ArrayHelper::getValue($this->apiData, 'related.video_url');
+        return (string)ArrayHelper::getValue($this->apiData, 'related.video_url');
     }
 
     /**
@@ -171,7 +177,7 @@ class PackageModel extends Model
     {
         $extensions = ArrayHelper::map(\Yii::$app->extensions, 'name', 'name');
 
-        return (bool) ArrayHelper::getValue($extensions, $this->packagistCode);
+        return (bool)ArrayHelper::getValue($extensions, $this->packagistCode);
     }
 
     /**
@@ -179,13 +185,12 @@ class PackageModel extends Model
      */
     public function createCmsExtension()
     {
-        if (!$this->isInstalled())
-        {
+        if (!$this->isInstalled()) {
             return null;
         }
 
-        $extensionData  = ArrayHelper::getValue(\Yii::$app->extensions, $this->packagistCode);
-        $cmsExtension   = new CmsExtension($extensionData);
+        $extensionData = ArrayHelper::getValue(\Yii::$app->extensions, $this->packagistCode);
+        $cmsExtension = new CmsExtension($extensionData);
 
         $cmsExtension->marketplacePackage = $this;
         return $cmsExtension;

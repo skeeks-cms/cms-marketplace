@@ -6,6 +6,7 @@
  * @date 06.02.2015
  * @since 1.0.0
  */
+
 namespace skeeks\cms\marketplace\controllers;
 
 use skeeks\cms\components\marketplace\models\PackageModel;
@@ -25,53 +26,52 @@ class AdminMarketplaceController extends AdminController
 {
     public function init()
     {
-        $this->name                   = "Маркетплейс";
+        $this->name = "Маркетплейс";
         parent::init();
     }
 
     public function actions()
     {
         return
-        [
-            "index" =>
             [
-                "class"        => AdminAction::className(),
-                "name"         => "Установленные",
-            ],
+                "index" =>
+                    [
+                        "class" => AdminAction::className(),
+                        "name" => "Установленные",
+                    ],
 
-            "catalog" =>
-            [
-                "class"        => AdminAction::className(),
-                "name"         => "Каталог",
-            ],
+                "catalog" =>
+                    [
+                        "class" => AdminAction::className(),
+                        "name" => "Каталог",
+                    ],
 
-            "install" =>
-            [
-                "class"        => AdminAction::className(),
-                "name"         => "Установить/Удалить",
-                "callback"     => [$this, 'actionInstall'],
-            ],
+                "install" =>
+                    [
+                        "class" => AdminAction::className(),
+                        "name" => "Установить/Удалить",
+                        "callback" => [$this, 'actionInstall'],
+                    ],
 
-            "update" =>
-            [
-                "class"        => AdminAction::className(),
-                "name"         => "Обновление платформы",
-            ],
-        ];
+                "update" =>
+                    [
+                        "class" => AdminAction::className(),
+                        "name" => "Обновление платформы",
+                    ],
+            ];
     }
 
     public function actionInstall()
     {
         $packageModel = null;
 
-        if ($packagistCode = \Yii::$app->request->get('packagistCode'))
-        {
+        if ($packagistCode = \Yii::$app->request->get('packagistCode')) {
             $packageModel = PackageModel::fetchByCode($packagistCode);
         }
 
         return $this->render($this->action->id, [
             'packagistCode' => $packagistCode,
-            'packageModel'  => $packageModel,
+            'packageModel' => $packageModel,
         ]);
     }
 }
