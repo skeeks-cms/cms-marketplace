@@ -9,6 +9,7 @@
 /* @var string $packagistCode */
 /* @var $packageModel PackageModel */
 /*$packageModel = \skeeks\cms\marketplace\models\PackageModel::fetchByCode('skeeks/cms');*/
+//exec("cd " . \Yii::getAlias('@root'). " && COMPOSER_HOME=.composer php composer.phar self-update && COMPOSER_HOME=.composer php composer.phar update -o > update.log 2>&1 &");
 ?>
 
 <div id="sx-search" style="margin-bottom: 10px;">
