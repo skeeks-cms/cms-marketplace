@@ -34,30 +34,31 @@ class AdminMarketplaceController extends AdminController
     {
         return
             [
-                "index" =>
-                    [
-                        "class" => AdminAction::className(),
-                        "name" => "Установленные",
-                    ],
+                "index" => [
+                    "class" => AdminAction::className(),
+                    "name" => "Установленные",
+                ],
 
-                "catalog" =>
-                    [
-                        "class" => AdminAction::className(),
-                        "name" => "Каталог",
-                    ],
+                "catalog" => [
+                    "class" => AdminAction::className(),
+                    "name" => "Каталог",
+                ],
 
-                "install" =>
-                    [
-                        "class" => AdminAction::className(),
-                        "name" => "Установить/Удалить",
-                        "callback" => [$this, 'actionInstall'],
-                    ],
+                "install" => [
+                    "class" => AdminAction::className(),
+                    "name" => "Установить/Удалить",
+                    "callback" => [$this, 'actionInstall'],
+                ],
 
-                "update" =>
-                    [
-                        "class" => AdminAction::className(),
-                        "name" => "Обновление платформы",
-                    ],
+                "update" => [
+                    "class" => AdminAction::className(),
+                    "name" => "Обновление платформы",
+                ],  
+
+                "test" => [
+                    "class" => AdminAction::className(),
+                    "name" => "test",
+                ],
             ];
     }
 
