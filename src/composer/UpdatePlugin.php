@@ -1,11 +1,9 @@
 <?php
 /**
- * Composer plugin for config assembling
- *
- * @link      https://github.com/hiqdev/composer-config-plugin
- * @package   composer-config-plugin
- * @license   BSD-3-Clause
- * @copyright Copyright (c) 2016-2017, HiQDev (http://hiqdev.com/)
+ * @author Semenov Alexander <semenov@skeeks.com>
+ * @link https://skeeks.com/
+ * @copyright (c) 2010 SkeekS
+ * @date 15.11.2017
  */
 
 namespace skeeks\cms\marketplace\composer;
