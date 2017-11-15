@@ -33,8 +33,8 @@ $composerLockFile = \Yii::getAlias('@root/composer.lock');
     <? endif; ?>
 </div>
 <hr/>
-<div class="row sx-update-wrapper">
-    <div class="col-md-12 text-center">
+<div class="row">
+    <div class="col-md-12 text-center sx-update-wrapper">
         <div class=" btn btn-primary btn-lg sx-btn-run">
             <?= \Yii::t('skeeks/marketplace', 'Start update'); ?>
         </div>
@@ -131,7 +131,8 @@ $this->registerJs(<<<JS
                 
                 Handler.bind('error', function() {
                     self.trigger('errorStep');
-                    self.trigger('stopUpdate');
+                    /*self.trigger('stopUpdate');*/
+                    self.runStep();
                 });
                 
                 AjaxQuery.execute();
