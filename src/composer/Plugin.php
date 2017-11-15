@@ -20,10 +20,10 @@ use Composer\Script\ScriptEvents;
 use Composer\Util\Filesystem;
 
 /**
- * Class UpdatePlugin
+ * Class Plugin
  * @package skeeks\cms\marketplace\composer
  */
-class UpdatePlugin implements PluginInterface, EventSubscriberInterface
+class Plugin implements PluginInterface, EventSubscriberInterface
 {
     /**
      * @var string absolute path to the package base directory

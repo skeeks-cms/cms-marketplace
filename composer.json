@@ -27,7 +27,7 @@
         }
     },
     "extra": {
-        "class": "skeeks\\cms\\marketplace\\composer\\UpdatePlugin",
+        "class": "skeeks\\cms\\marketplace\\composer\\Plugin",
         "config-plugin": {
             "web": "src/config/web.php"
         }
