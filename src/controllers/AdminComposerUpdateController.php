@@ -11,6 +11,8 @@ namespace skeeks\cms\marketplace\controllers;
 
 use skeeks\cms\backend\BackendAction;
 use skeeks\cms\components\marketplace\models\PackageModel;
+use skeeks\cms\composer\update\Plugin;
+use skeeks\cms\composer\update\PluginConfig;
 use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\models\Comment;
 use skeeks\cms\modules\admin\actions\AdminAction;
@@ -47,22 +49,33 @@ class AdminComposerUpdateController extends AdminController
         ];
     }
 
-    protected function getFileUpdateSuccessResult() {
+    public function getTmpUpdateLockFilePath()
+    {
+        //TODO:: to fix it's
+        //return \Yii::getAlias('@root/' . PluginConfig::UPDATE_LOCK_TMP_FILE);
+        return \Yii::getAlias('@root/update.lock.tmp');
+    }
+
+    protected function getFileUpdateSuccessResult()
+    {
         return \Yii::getAlias('@runtime/skeeks-update/success.log');
     }
 
-    protected function getFileUpdateErrorResult() {
+    protected function getFileUpdateErrorResult()
+    {
         return \Yii::getAlias('@runtime/skeeks-update/error.log');
     }
 
-    protected function getFileUpdateDir() {
+    protected function getFileUpdateDir()
+    {
         return \Yii::getAlias('@runtime/skeeks-update');
     }
 
     /**
      * @return bool|int
      */
-    public function lastUpdateTime() {
+    public function lastUpdateTime()
+    {
         $fileUpdateSuccessResult = $this->getFileUpdateSuccessResult();
         $fileUpdateErrorResult = $this->getFileUpdateErrorResult();
 
@@ -83,12 +96,14 @@ class AdminComposerUpdateController extends AdminController
         return $lastUpdateTime;
     }
 
-    public function passedUpdateTime() {
+    public function passedUpdateTime()
+    {
         return time() - $this->lastUpdateTime();
     }
 
-    public function isRunningUpdate() {
-        return $this->passedUpdateTime() > 60*5 ? false : true;
+    public function isRunningUpdate()
+    {
+        return file_exists($this->getTmpUpdateLockFilePath());
     }
 
     public function actionUpdate()
@@ -103,15 +118,15 @@ class AdminComposerUpdateController extends AdminController
         if ($rr->isRequestAjaxPost) {
 
             $cmd = "COMPOSER_HOME=.composer php composer.phar self-update && COMPOSER_HOME=.composer php composer.phar update -o --no-interaction >{$fileUpdateSuccessResult} 2>&1 3>{$fileUpdateErrorResult} &";
-    
+
             $process = new \Symfony\Component\Process\Process($cmd, \Yii::getAlias('@root'));
             $process->run();
-            
+
             $rr->success = true;
             $rr->message = 'Процесс обновления запущен';
             return $rr;
         }
-        
+
         $lastResultSuccess = '';
         if (file_exists($fileUpdateSuccessResult)) {
             $file = fopen($fileUpdateSuccessResult, "r");
@@ -131,7 +146,7 @@ class AdminComposerUpdateController extends AdminController
         }
 
         return $this->render($this->action->id, [
-            'fileUpdateResult'      => $fileUpdateSuccessResult,
+            'fileUpdateResult' => $fileUpdateSuccessResult,
             'fileUpdateErrorResult' => $fileUpdateErrorResult,
             'lastSuccessResult' => $lastResultSuccess,
             'lastErrorResult' => $lastResultError,
