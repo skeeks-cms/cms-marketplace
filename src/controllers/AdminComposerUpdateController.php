@@ -47,8 +47,8 @@ class AdminComposerUpdateController extends AdminController
         ];
     }
 
-    protected function getFileUpdateResult() {
-        return \Yii::getAlias('@runtime/skeeks-update/update.log');
+    protected function getFileUpdateSuccessResult() {
+        return \Yii::getAlias('@runtime/skeeks-update/success.log');
     }
 
     protected function getFileUpdateErrorResult() {
@@ -65,12 +65,12 @@ class AdminComposerUpdateController extends AdminController
 
         FileHelper::createDirectory($this->getFileUpdateDir());
 
-        $fileUpdateResult = $this->getFileUpdateResult();
+        $fileUpdateSuccessResult = $this->getFileUpdateSuccessResult();
         $fileUpdateErrorResult = $this->getFileUpdateErrorResult();
 
         if ($rr->isRequestAjaxPost) {
 
-            $cmd = "COMPOSER_HOME=.composer php composer.phar self-update && COMPOSER_HOME=.composer php composer.phar update -o --no-interaction >{$fileUpdateResult} 2>&1 3>{$fileUpdateErrorResult} &";
+            $cmd = "COMPOSER_HOME=.composer php composer.phar self-update && COMPOSER_HOME=.composer php composer.phar update -o --no-interaction >{$fileUpdateSuccessResult} 2>&1 3>{$fileUpdateErrorResult} &";
     
             $process = new \Symfony\Component\Process\Process($cmd, \Yii::getAlias('@root'));
             $process->run();
@@ -80,10 +80,10 @@ class AdminComposerUpdateController extends AdminController
             return $rr;
         }
         
-        $lastResult = '';
-        if (file_exists($fileUpdateResult)) {
-            $file = fopen($fileUpdateResult, "r");
-            $lastResult = fread($file, filesize($fileUpdateResult));
+        $lastResultSuccess = '';
+        if (file_exists($fileUpdateSuccessResult)) {
+            $file = fopen($fileUpdateSuccessResult, "r");
+            $lastResultSuccess = fread($file, filesize($fileUpdateSuccessResult));
             fclose($file);
         }
 
@@ -95,10 +95,10 @@ class AdminComposerUpdateController extends AdminController
         }
 
         return $this->render($this->action->id, [
-            'fileUpdateResult'      => $fileUpdateResult,
+            'fileUpdateResult'      => $fileUpdateSuccessResult,
             'fileUpdateErrorResult' => $fileUpdateErrorResult,
-            'lastResult' => $lastResult,
-            'lastResultError' => $lastResultError,
+            'lastSuccessResult' => $lastResultSuccess,
+            'lastErrorResult' => $lastResultError,
         ]);
     }
 
@@ -108,22 +108,31 @@ class AdminComposerUpdateController extends AdminController
 
         if ($rr->isRequestAjaxPost) {
 
-            $filePath = $this->getFileUpdateResult();
+            $filePathSuccess = $this->getFileUpdateSuccessResult();
+            $filePathError = $this->getFileUpdateErrorResult();
 
-            if (!file_exists($filePath)) {
-                throw new \Exception("Read file error '{$filePath}'");
+            $contentSuccess = '';
+            $contentError = '';
+
+            if (file_exists($filePathSuccess)) {
+                $file = fopen($filePathSuccess, "r");
+                $contentSuccess = fread($file, filesize($filePathSuccess));
+                fclose($file);
             }
-            $file = fopen($filePath, "r");
-            if (!$file) {
-                throw new \Exception("Unable to open file: '{$filePath}'");
+
+            if (file_exists($filePathError)) {
+                $file = fopen($filePathError, "r");
+                $contentError = fread($file, filesize($filePathError));
+                fclose($file);
             }
-            $content = fread($file, filesize($filePath));
-            fclose($file);
+
 
             $rr->success = true;
             $rr->data = [
                 'stop' => false,
-                'content' => $content
+
+                'successContent' => $contentSuccess,
+                'errorContent' => $contentError
             ];
         }
 

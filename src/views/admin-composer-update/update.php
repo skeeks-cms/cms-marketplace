@@ -42,7 +42,7 @@ $composerLockFile = \Yii::getAlias('@root/composer.lock');
 
     <div class="col-md-12">
         <label>Лог обновления</label>
-        <pre class="sx-console sx-result">
+        <pre class="sx-console sx-result-success">
             <?= $lastResult; ?>
         </pre>
         <label>Лог ошибок обновления</label>
@@ -88,6 +88,10 @@ $this->registerJs(<<<JS
         {
             this.stepTimeout = this.get('stepTimeout', 4000);
             
+            this.bind('startUpdate', function(e, data) {
+                  $('.sx-console').empty();
+            });  
+            
             this.bind('beforeStep', function(e, data) {
                   
             });  
@@ -109,8 +113,11 @@ $this->registerJs(<<<JS
                 Handler.bind('success', function(e, data) {
                     self.trigger('successStep', data);
                     
-                    if (data.content) {
-                        $('.sx-result').empty().append(data.content);
+                    if (data.successContent) {
+                        $('.sx-result-success').empty().append(data.successContent);
+                    }
+                    if (data.errorContent) {
+                        $('.sx-result-error').empty().append(data.errorContent);
                     }
                     
                     if (data.stop === true) {
