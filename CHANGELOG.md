@@ -1,7 +1,7 @@
 CHANGELOG
 ==============
 
-2.0.0-alpha.pre
+2.0.0-alpha
 -----------------
  * Auto-update through the admin panel
  * Code style
