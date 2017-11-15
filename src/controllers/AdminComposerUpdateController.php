@@ -83,14 +83,18 @@ class AdminComposerUpdateController extends AdminController
         $lastResultSuccess = '';
         if (file_exists($fileUpdateSuccessResult)) {
             $file = fopen($fileUpdateSuccessResult, "r");
-            $lastResultSuccess = fread($file, filesize($fileUpdateSuccessResult));
+            if ($file && filesize($fileUpdateSuccessResult)) {
+                $lastResultSuccess = fread($file, filesize($fileUpdateSuccessResult));
+            }
             fclose($file);
         }
 
         $lastResultError = '';
         if (file_exists($fileUpdateErrorResult)) {
             $file = fopen($fileUpdateErrorResult, "r");
-            $lastResultError = fread($file, filesize($fileUpdateErrorResult));
+            if ($file && filesize($fileUpdateErrorResult)) {
+                $lastResultError = fread($file, filesize($fileUpdateErrorResult));
+            }
             fclose($file);
         }
 
@@ -116,13 +120,17 @@ class AdminComposerUpdateController extends AdminController
 
             if (file_exists($filePathSuccess)) {
                 $file = fopen($filePathSuccess, "r");
-                $contentSuccess = fread($file, filesize($filePathSuccess));
+                if ($file && filesize($filePathSuccess)) {
+                    $contentSuccess = fread($file, filesize($filePathSuccess));
+                }
                 fclose($file);
             }
 
             if (file_exists($filePathError)) {
                 $file = fopen($filePathError, "r");
-                $contentError = fread($file, filesize($filePathError));
+                if ($file && filesize($filePathError)) {
+                    $contentError = fread($file, filesize($filePathError));
+                }
                 fclose($file);
             }
 

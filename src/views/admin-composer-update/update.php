@@ -43,11 +43,11 @@ $composerLockFile = \Yii::getAlias('@root/composer.lock');
     <div class="col-md-12">
         <label>Лог обновления</label>
         <pre class="sx-console sx-result-success">
-            <?= $lastResult; ?>
+            <?= $lastSuccessResult; ?>
         </pre>
         <label>Лог ошибок обновления</label>
         <pre class="sx-console sx-result-error">
-            <?= $lastResultError; ?>
+            <?= $lastErrorResult; ?>
         </pre>
     </div>
     </div>
@@ -110,9 +110,11 @@ $this->registerJs(<<<JS
                 new sx.classes.AjaxHandlerNoLoader(AjaxQuery);
                 var Handler = new sx.classes.AjaxHandlerStandartRespose(AjaxQuery);
                 
-                Handler.bind('success', function(e, data) {
-                    self.trigger('successStep', data);
+                Handler.bind('success', function(e, result {
+                    self.trigger('successStep', result);
                     
+                    var data = result.data;
+
                     if (data.successContent) {
                         $('.sx-result-success').empty().append(data.successContent);
                     }
