@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+2.0.0-alpha2
+-----------------
+ * "symfony/process": "~3.3.6",
+ 
 2.0.0-alpha
 -----------------
  * Auto-update through the admin panel
