@@ -110,7 +110,7 @@ $this->registerJs(<<<JS
                 new sx.classes.AjaxHandlerNoLoader(AjaxQuery);
                 var Handler = new sx.classes.AjaxHandlerStandartRespose(AjaxQuery);
                 
-                Handler.bind('success', function(e, result {
+                Handler.bind('success', function(e, result) {
                     self.trigger('successStep', result);
                     
                     var data = result.data;
