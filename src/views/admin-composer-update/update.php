@@ -78,6 +78,7 @@ CSS
 $js = \yii\helpers\Json::encode([
     'backend' => \yii\helpers\Url::to(['update']),
     'backendStep' => \yii\helpers\Url::to(['step']),
+    'isRunningUpdate' => $isRunningUpdate,
 ]);
 $this->registerJs(<<<JS
 (function(sx, $, _)
@@ -159,6 +160,11 @@ $this->registerJs(<<<JS
             this.bind('stopUpdate', function(e, data) {
                   self.Blocker.unblock();
             });
+            
+            if (this.get('isRunningUpdate')) {
+                this.trigger('startUpdate');
+                this.runStep();
+            }
         },
         
         run: function()

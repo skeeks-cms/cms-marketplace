@@ -18,6 +18,7 @@
 	],
 	"require": {
 		"skeeks/cms": "~5.0.0 || dev-master",
+		"skeeks/cms-composer-update-plugin": "~1.0.0 || dev-master",
 		"symfony/process": "~3.3.12",
 		"skeeks/yii2-curl": "*"
 	},
@@ -27,7 +28,6 @@
         }
     },
     "extra": {
-        "class": "skeeks\\cms\\marketplace\\composer\\Plugin",
         "config-plugin": {
             "web": "src/config/web.php"
         }

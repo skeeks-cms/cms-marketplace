@@ -83,6 +83,14 @@ class AdminComposerUpdateController extends AdminController
         return $lastUpdateTime;
     }
 
+    public function passedUpdateTime() {
+        return time() - $this->lastUpdateTime();
+    }
+
+    public function isRunningUpdate() {
+        return $this->passedUpdateTime() > 60*5 ? false : true;
+    }
+
     public function actionUpdate()
     {
         $rr = new ResponseHelper();
@@ -128,6 +136,7 @@ class AdminComposerUpdateController extends AdminController
             'lastSuccessResult' => $lastResultSuccess,
             'lastErrorResult' => $lastResultError,
             'lastUpdateTime' => $this->lastUpdateTime(),
+            'isRunningUpdate' => $this->isRunningUpdate(),
         ]);
     }
 
@@ -162,11 +171,15 @@ class AdminComposerUpdateController extends AdminController
 
             $rr->success = true;
             $rr->data = [
-                'stop' => false,
-
                 'successContent' => $contentSuccess,
                 'errorContent' => $contentError
             ];
+
+            if ($this->isRunningUpdate()) {
+                $rr->data['stop'] = false;
+            } else {
+                $rr->data['stop'] = true;
+            }
         }
 
         return $rr;
