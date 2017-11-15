@@ -18,7 +18,7 @@
 	],
 	"require": {
 		"skeeks/cms": "~5.0.0 || dev-master",
-		"symfony/process": "*",
+		"symfony/process": "~3.3.12",
 		"skeeks/yii2-curl": "*"
 	},
     "autoload": {
