@@ -59,6 +59,30 @@ class AdminComposerUpdateController extends AdminController
         return \Yii::getAlias('@runtime/skeeks-update');
     }
 
+    /**
+     * @return bool|int
+     */
+    public function lastUpdateTime() {
+        $fileUpdateSuccessResult = $this->getFileUpdateSuccessResult();
+        $fileUpdateErrorResult = $this->getFileUpdateErrorResult();
+
+        $lastUpdateTime = 0;
+        if (file_exists($fileUpdateSuccessResult)) {
+            $lastUpdateTime = filemtime($fileUpdateSuccessResult);
+        }
+
+        $lastUpdateTimeError = 0;
+        if (file_exists($fileUpdateErrorResult)) {
+            $lastUpdateTimeError = filemtime($fileUpdateErrorResult);
+        }
+
+        if ($lastUpdateTimeError > $lastUpdateTime) {
+            $lastUpdateTime = $lastUpdateTimeError;
+        }
+
+        return $lastUpdateTime;
+    }
+
     public function actionUpdate()
     {
         $rr = new ResponseHelper();
@@ -103,6 +127,7 @@ class AdminComposerUpdateController extends AdminController
             'fileUpdateErrorResult' => $fileUpdateErrorResult,
             'lastSuccessResult' => $lastResultSuccess,
             'lastErrorResult' => $lastResultError,
+            'lastUpdateTime' => $this->lastUpdateTime(),
         ]);
     }
 
