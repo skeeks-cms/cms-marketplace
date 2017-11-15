@@ -19,7 +19,7 @@
 	"require": {
 		"skeeks/cms": "~5.0.0 || dev-master",
 		"skeeks/cms-composer-update-plugin": "~1.0.0 || dev-master",
-		"symfony/process": "~3.3.12",
+		"symfony/process": "~3.3.6",
 		"skeeks/yii2-curl": "*"
 	},
     "autoload": {
