@@ -3,6 +3,7 @@ CHANGELOG
 
 2.0.0-alpha.pre
 -----------------
+ * Auto-update through the admin panel
  * Code style
  * Change dir to src
  
