@@ -1,6 +1,10 @@
 CHANGELOG
 ==============
 
+2.0.1
+-----------------
+ * Composer dependecies update
+ 
 2.0.0
 -----------------
  * License update
