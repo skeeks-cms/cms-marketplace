@@ -9,12 +9,7 @@
 namespace skeeks\cms\marketplace;
 
 use yii\base\Component;
-use yii\web\Application;
-use Yii;
-
-use skeeks\yii2\curl\Curl;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Json;
+use yii\httpclient\Client;
 
 /**
  * @property string $url;
@@ -43,7 +38,7 @@ class CmsMarketplaceComponent extends Component
     public function getUrl()
     {
         if ($this->version) {
-            return $this->baseUrl . $this->version . "/";
+            return $this->baseUrl.$this->version."/";
         }
 
         return $this->baseUrl;
@@ -58,7 +53,7 @@ class CmsMarketplaceComponent extends Component
      */
     public function getBaseUrl()
     {
-        return $this->schema . "://" . $this->host . "/";
+        return $this->schema."://".$this->host."/";
     }
 
     /**
@@ -71,14 +66,14 @@ class CmsMarketplaceComponent extends Component
         $url = $this->url;
 
         if (is_string($route)) {
-            $url = $this->url . $route;
+            $url = $this->url.$route;
         } else {
             if (is_array($route)) {
                 $route = $route[0];
                 if (isset($route[1])) {
                     $data = $route[1];
                 }
-                $url = $this->url . $route;
+                $url = $this->url.$route;
 
                 if (!$data || !is_array($data)) {
                     $data = [];
@@ -86,12 +81,12 @@ class CmsMarketplaceComponent extends Component
 
                 $data = array_merge($data, [
                     'sx-serverName' => \Yii::$app->request ? \Yii::$app->request->serverName : "",
-                    'sx-version' => (\Yii::$app->cms && \Yii::$app->cms->descriptor) ? \Yii::$app->cms->descriptor->version : "",
-                    'sx-email' => (\Yii::$app->cms && \Yii::$app->cms->adminEmail) ? \Yii::$app->cms->adminEmail : "",
+                    'sx-version'    => (\Yii::$app->cms && \Yii::$app->cms->descriptor) ? \Yii::$app->cms->descriptor->version : "",
+                    'sx-email'      => (\Yii::$app->cms && \Yii::$app->cms->adminEmail) ? \Yii::$app->cms->adminEmail : "",
                 ]);
 
                 if ($data) {
-                    $url .= '?' . http_build_query($data);
+                    $url .= '?'.http_build_query($data);
                 }
             }
         }
@@ -100,47 +95,31 @@ class CmsMarketplaceComponent extends Component
     }
 
     /**
-     * @param string $method
-     * @param string|array $route
-     * @return Curl
-     * @throws \yii\base\Exception
-     */
-    public function request($method, $route)
-    {
-        $curl = new Curl();
-
-        $curl->setOption(CURLOPT_HTTPHEADER, [
-            'Accept: application/' . $this->responseFormat . '; q=1.0, */*; q=0.1'
-        ]);
-
-        $curl->setOption(CURLOPT_TIMEOUT, 2);
-
-        try {
-            $url = $this->getRequestUrl($route);
-            /*\Yii::info("Api request: " . $method . ": " . $url, self::className());*/
-            $curl->httpRequest($method, $url);
-        } catch (\Exception $e) {
-            \Yii::error($e->getMessage(), self::className());
-        }
-
-
-        return $curl;
-    }
-
-
-    /**
      * @param $route
      * @return array
      */
     public function fetch($route)
     {
-        $curl = $this->request(Curl::METHOD_GET, $route);
+        try {
+            $client = new Client();
+            $response = $client->createRequest()
+                ->setMethod('GET')
+                ->setUrl($this->getRequestUrl($route))
+                ->setOptions([
+                    'timeout' => 1,
+                ])
+                ->send();
 
-        if ($curl->responseCode == 200 && $curl->response) {
-            return Json::decode($curl->response);
+            if ($response->isOk) {
+                return $response->data;
+            }
+        } catch (\Exception $e) {
+            \Yii::error("SkeekS CMS API error: ".$e->getMessage(), self::class);
+            return [];
         }
 
         return [];
+
     }
 
     /**

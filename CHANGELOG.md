@@ -1,6 +1,11 @@
 CHANGELOG
 ==============
 
+2.0.2
+-----------------
+ * Use yiisoft/yii2-httpclient
+ * Not use skeeks/yii2-curl
+ 
 2.0.1
 -----------------
  * Composer dependecies update
