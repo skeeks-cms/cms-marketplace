@@ -1,27 +1,33 @@
 {
-	"name": "skeeks/cms-marketplace",
-	"description": "Marketplace for SkeekS CMS",
-	"keywords": ["yii", "skeeks", "framework", "component", "marketplace"],
+    "name": "skeeks/cms-marketplace",
+    "description": "Marketplace for SkeekS CMS",
+    "keywords": [
+        "yii",
+        "skeeks",
+        "framework",
+        "component",
+        "marketplace"
+    ],
     "homepage": "http://cms.skeeks.com/",
-	"type": "yii2-extension",
-	"license": "BSD-3-Clause",
-	"support": {
+    "type": "yii2-extension",
+    "license": "BSD-3-Clause",
+    "support": {
         "issues": "https://skeeks.com/",
         "wiki": "https://cms.skeeks.com/docs/",
         "source": "https://github.com/skeeks-cms/cms-marketplace"
     },
-	"authors": [
-		{
-			"name": "Semenov Alexander",
-			"email": "semenov@skeeks.com"
-		}
-	],
-	"require": {
-		"skeeks/cms": "^5.0.4 || dev-master",
-		"skeeks/cms-composer-update-plugin": "^1.0.0 || dev-master",
+    "authors": [
+        {
+            "name": "Semenov Alexander",
+            "email": "semenov@skeeks.com"
+        }
+    ],
+    "require": {
+        "skeeks/cms": "^5.0.4 || dev-master",
+        "skeeks/cms-composer-update-plugin": "^1.0.0 || dev-master",
         "yiisoft/yii2-httpclient": "^2",
-		"symfony/process": "~3.3.6"
-	},
+        "symfony/process": "~3.3.6"
+    },
     "autoload": {
         "psr-4": {
             "skeeks\\cms\\marketplace\\": "src/"
@@ -29,7 +35,13 @@
     },
     "extra": {
         "config-plugin": {
-            "web": "src/config/web.php"
+            "web": [
+                "src/config/common.php",
+                "src/config/web.php"
+            ],
+            "console": [
+                "src/config/common.php"
+            ]
         }
     }
 }
