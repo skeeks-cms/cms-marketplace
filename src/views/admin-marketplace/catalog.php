@@ -31,7 +31,7 @@ $self = $this;
 
     </div>
 <? else : ?>
-    <? \yii\bootstrap\Alert::begin([
+    <? $alert = \yii\bootstrap\Alert::begin([
         'options' => [
             'class' => 'alert-info',
         ]
@@ -40,7 +40,7 @@ $self = $this;
     <p><?= \Yii::t('skeeks/marketplace',
             'Future versions will be integrated {market} here. For now, simply click the link below.',
             ['market' => \Yii::t('skeeks/marketplace', 'Marketplace')]) ?></p>
-    <? \yii\bootstrap\Alert::end(); ?>
+    <? $alert::end(); ?>
 
     <div class="sx-marketplace">
         <a href="https://cms.skeeks.com/marketplace" target="_blank">cms.SkeekS.com/marketplace</a>
