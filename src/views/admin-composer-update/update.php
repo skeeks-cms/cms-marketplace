@@ -25,7 +25,7 @@ $composerLockFile = \Yii::getAlias('@root/composer.lock');
 <div id="sx-search" style="margin-bottom: 10px;">
     <!--<p><b><a data-pjax="0" target="_blank" href="<? /*= $packageModel->url; */ ?>"><? /*=\Yii::t('skeeks/marketplace','{yii} Version',['yii' => 'SkeekS CMS'])*/ ?></a>: </b> <? /*= \Yii::$app->cms->descriptor->version; */ ?></p>-->
     <p><b><?= \Yii::t('skeeks/marketplace', '{yii} Version', ['yii' => 'Yii']) ?>: </b> <?= Yii::getVersion(); ?></p>
-    <p><b>SkeekS CMS: </b> <?= Yii::$app->cms->descriptor->version; ?></p>
+    <p><b>SkeekS CMS: </b> <?= Yii::$app->cms->version; ?></p>
     <? if (file_exists($composerLockFile)) : ?>
         <p><b>Время последнего обновления: </b> <?= \Yii::$app->formatter->asDatetime(filemtime($composerLockFile)); ?></p>
     <? else : ?>

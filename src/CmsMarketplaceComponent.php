@@ -81,7 +81,7 @@ class CmsMarketplaceComponent extends Component
 
                 $data = array_merge($data, [
                     'sx-serverName' => \Yii::$app->request ? \Yii::$app->request->serverName : "",
-                    'sx-version'    => (\Yii::$app->cms && \Yii::$app->cms->descriptor) ? \Yii::$app->cms->descriptor->version : "",
+                    'sx-version'    => (\Yii::$app->cms) ? \Yii::$app->cms->version : "",
                     'sx-email'      => (\Yii::$app->cms && \Yii::$app->cms->adminEmail) ? \Yii::$app->cms->adminEmail : "",
                 ]);
 
