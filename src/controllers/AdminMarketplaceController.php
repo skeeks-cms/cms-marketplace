@@ -27,6 +27,8 @@ class AdminMarketplaceController extends AdminController
     public function init()
     {
         $this->name = "Маркетплейс";
+        $this->generateAccessActions = false;
+
         parent::init();
     }
 
@@ -50,7 +52,7 @@ class AdminMarketplaceController extends AdminController
                     "callback" => [$this, 'actionInstall'],
                 ],
 
-                "update" => [
+                /*"update" => [
                     "class" => AdminAction::className(),
                     "name" => "Обновление платформы",
                 ],  
@@ -58,7 +60,7 @@ class AdminMarketplaceController extends AdminController
                 "test" => [
                     "class" => AdminAction::className(),
                     "name" => "test",
-                ],
+                ],*/
             ];
     }
 

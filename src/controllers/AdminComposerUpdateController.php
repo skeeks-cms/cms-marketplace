@@ -35,6 +35,8 @@ class AdminComposerUpdateController extends AdminController
     public function init()
     {
         $this->name = \Yii::t('skeeks/marketplace', 'Updated platforms');
+        $this->generateAccessActions = false;
+
         parent::init();
     }
 
