@@ -9,25 +9,28 @@
 
 namespace skeeks\cms\marketplace\controllers;
 
+use skeeks\cms\backend\BackendController;
 use skeeks\cms\components\marketplace\models\PackageModel;
-use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\models\Comment;
 use skeeks\cms\modules\admin\actions\AdminAction;
-use skeeks\cms\modules\admin\controllers\AdminController;
-use Yii;
-use skeeks\cms\models\User;
-use skeeks\cms\models\searchs\User as UserSearch;
 
 /**
  * Class AdminMarketplaceController
  * @package skeeks\cms\marketplace\controllers
  */
-class AdminMarketplaceController extends AdminController
+class AdminMarketplaceController extends BackendController
 {
     public function init()
     {
         $this->name = "Маркетплейс";
         $this->generateAccessActions = false;
+
+        $this->accessCallback = function () {
+            if (!\Yii::$app->cms->site->is_default) {
+                return false;
+            }
+            return \Yii::$app->user->can($this->uniqueId);
+        };
 
         parent::init();
     }
@@ -38,17 +41,17 @@ class AdminMarketplaceController extends AdminController
             [
                 "index" => [
                     "class" => AdminAction::className(),
-                    "name" => "Установленные",
+                    "name"  => "Установленные",
                 ],
 
                 "catalog" => [
                     "class" => AdminAction::className(),
-                    "name" => "Каталог",
+                    "name"  => "Каталог",
                 ],
 
                 "install" => [
-                    "class" => AdminAction::className(),
-                    "name" => "Установить/Удалить",
+                    "class"    => AdminAction::className(),
+                    "name"     => "Установить/Удалить",
                     "callback" => [$this, 'actionInstall'],
                 ],
 
@@ -74,7 +77,7 @@ class AdminMarketplaceController extends AdminController
 
         return $this->render($this->action->id, [
             'packagistCode' => $packagistCode,
-            'packageModel' => $packageModel,
+            'packageModel'  => $packageModel,
         ]);
     }
 }

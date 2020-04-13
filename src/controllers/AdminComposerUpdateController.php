@@ -10,25 +10,18 @@
 namespace skeeks\cms\marketplace\controllers;
 
 use skeeks\cms\backend\BackendAction;
+use skeeks\cms\backend\BackendController;
 use skeeks\cms\components\marketplace\models\PackageModel;
 use skeeks\cms\composer\update\Plugin;
 use skeeks\cms\composer\update\PluginConfig;
-use skeeks\cms\helpers\UrlHelper;
 use skeeks\cms\models\Comment;
-use skeeks\cms\modules\admin\actions\AdminAction;
-use skeeks\cms\modules\admin\controllers\AdminController;
 use skeeks\sx\helpers\ResponseHelper;
-use Yii;
-use skeeks\cms\models\User;
-use skeeks\cms\models\searchs\User as UserSearch;
-use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 
 /**
- * Class AdminMarketplaceController
- * @package skeeks\cms\marketplace\controllers
+ * @author Semenov Alexander <semenov@skeeks.com>
  */
-class AdminComposerUpdateController extends AdminController
+class AdminComposerUpdateController extends BackendController
 {
     public $defaultAction = 'update';
 
@@ -37,6 +30,13 @@ class AdminComposerUpdateController extends AdminController
         $this->name = \Yii::t('skeeks/marketplace', 'Updated platforms');
         $this->generateAccessActions = false;
 
+        $this->accessCallback = function () {
+            if (!\Yii::$app->cms->site->is_default) {
+                return false;
+            }
+            return \Yii::$app->user->can($this->uniqueId);
+        };
+
         parent::init();
     }
 
@@ -44,8 +44,8 @@ class AdminComposerUpdateController extends AdminController
     {
         return [
             "update" => [
-                "class" => BackendAction::className(),
-                "name" => \Yii::t('skeeks/marketplace', 'Updated platforms'),
+                "class"    => BackendAction::className(),
+                "name"     => \Yii::t('skeeks/marketplace', 'Updated platforms'),
                 "callback" => [$this, 'actionUpdate'],
             ],
         ];
@@ -148,12 +148,12 @@ class AdminComposerUpdateController extends AdminController
         }
 
         return $this->render($this->action->id, [
-            'fileUpdateResult' => $fileUpdateSuccessResult,
+            'fileUpdateResult'      => $fileUpdateSuccessResult,
             'fileUpdateErrorResult' => $fileUpdateErrorResult,
-            'lastSuccessResult' => $lastResultSuccess,
-            'lastErrorResult' => $lastResultError,
-            'lastUpdateTime' => $this->lastUpdateTime(),
-            'isRunningUpdate' => $this->isRunningUpdate(),
+            'lastSuccessResult'     => $lastResultSuccess,
+            'lastErrorResult'       => $lastResultError,
+            'lastUpdateTime'        => $this->lastUpdateTime(),
+            'isRunningUpdate'       => $this->isRunningUpdate(),
         ]);
     }
 
@@ -189,7 +189,7 @@ class AdminComposerUpdateController extends AdminController
             $rr->success = true;
             $rr->data = [
                 'successContent' => $contentSuccess,
-                'errorContent' => $contentError
+                'errorContent'   => $contentError,
             ];
 
             if ($this->isRunningUpdate()) {
