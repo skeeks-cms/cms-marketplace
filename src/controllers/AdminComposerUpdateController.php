@@ -119,7 +119,7 @@ class AdminComposerUpdateController extends BackendController
 
         if ($rr->isRequestAjaxPost) {
 
-            $cmd = "COMPOSER_HOME=.composer php composer.phar self-update && COMPOSER_HOME=.composer php composer.phar update -o --no-interaction >{$fileUpdateSuccessResult} 2>&1 3>{$fileUpdateErrorResult} &";
+            $cmd = "COMPOSER_HOME=.composer php composer.phar self-update 1.10.17 && COMPOSER_HOME=.composer php composer.phar update -o --no-interaction >{$fileUpdateSuccessResult} 2>&1 3>{$fileUpdateErrorResult} &";
 
             $process = new \Symfony\Component\Process\Process($cmd, \Yii::getAlias('@root'));
             $process->run();
