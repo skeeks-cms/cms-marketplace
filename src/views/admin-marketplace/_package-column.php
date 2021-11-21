@@ -36,7 +36,7 @@
     </p>
 
     <p>
-        <a data-pjax="0" href="<?= $model->url; ?>" class="btn btn-default btn-primary" target="_blank"
+        <a data-pjax="0" href="<?= $model->url; ?>" class="btn  btn-primary" target="_blank"
            title="<?= \Yii::t('skeeks/marketplace', 'Watch to {site} (opens in new window)',
                ['site' => \Yii::t('skeeks/marketplace', 'Marketplace')]) ?>"><i
                     class="glyphicon glyphicon-shopping-cart"></i> <?= \Yii::t('skeeks/marketplace', 'Marketplace') ?>
