@@ -8,7 +8,16 @@ return [
         'backendAdmin' => [
             'menu' => [
                 'data' => [
-                    'marketplace' => [
+                    'other' => [
+                        'items' => [
+                            [
+                                "name" => ['skeeks/marketplace', "Updated platforms"],
+                                "url"   => ["cmsMarketplace/admin-composer-update/update"],
+                                "image"   => ['skeeks\cms\marketplace\assets\CmsMarkerplaceAsset', 'icons/update-2.png'],
+                            ],
+                        ],
+                    ],
+                    /*'marketplace' => [
                         'priority' => 400,
                         'name'    => ['skeeks/marketplace', 'Marketplace'],
                         "image"      => ['skeeks\cms\marketplace\assets\CmsMarkerplaceAsset', 'icons/marketplace.png'],
@@ -38,7 +47,7 @@ return [
                                 "image"   => ['skeeks\cms\marketplace\assets\CmsMarkerplaceAsset', 'icons/update-2.png'],
                             ],
                         ],
-                    ],
+                    ],*/
                 ],
             ],
         ],
