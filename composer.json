@@ -23,7 +23,6 @@
         }
     ],
     "require": {
-        "skeeks/cms": "^5.0 || dev-master",
         "yiisoft/yii2-httpclient": "^2",
         "symfony/process": "~3.3.6"
     },
