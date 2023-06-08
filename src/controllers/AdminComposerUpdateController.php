@@ -110,6 +110,7 @@ class AdminComposerUpdateController extends BackendController
 
     public function actionUpdate()
     {
+
         $rr = new ResponseHelper();
 
         FileHelper::createDirectory($this->getFileUpdateDir());
