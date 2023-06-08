@@ -16,6 +16,7 @@ use skeeks\cms\composer\update\Plugin;
 use skeeks\cms\composer\update\PluginConfig;
 use skeeks\cms\models\Comment;
 use skeeks\sx\helpers\ResponseHelper;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 use yii\helpers\FileHelper;
 
 /**
@@ -120,10 +121,30 @@ class AdminComposerUpdateController extends BackendController
 
         if ($rr->isRequestAjaxPost) {
 
-            $cmd = "COMPOSER_HOME=.composer php composer.phar self-update --2 && COMPOSER_HOME=.composer php composer.phar update -o --no-interaction >{$fileUpdateSuccessResult} 2>&1 3>{$fileUpdateErrorResult} &";
+            $root = \Yii::getAlias('@root');
+            $cmd = "cd {$root} && COMPOSER_HOME=.composer php composer.phar self-update --2";
+            $cmd2 = "COMPOSER_HOME=.composer php composer.phar update -o --no-interaction >{$fileUpdateSuccessResult} 2>&1 3>{$fileUpdateErrorResult} &";
+            $cmdfull = $cmd . " && " . $cmd2;
 
-            $process = new \Symfony\Component\Process\Process($cmd, \Yii::getAlias('@root'));
+            $response = [];
+            $result = false;
+            exec($cmdfull, $response, $result);
+
+            //$process = new \Symfony\Component\Process\Process([\Yii::getAlias('@root'), "pwd"]);
+            //$process = new \Symfony\Component\Process\Process(["COMPOSER_HOME=.composer", "/usr/bin/php", "composer.phar", "self-update", "--2"]);
+            //$process = new \Symfony\Component\Process\Process(["chmod", "+x", "update.sh", "./update.sh"]);
+            /*$process = new \Symfony\Component\Process\Process(["php yii"]);
+            $process->setWorkingDirectory(\Yii::getAlias('@root'));
             $process->run();
+
+            // executes after the command finishes
+            if (!$process->isSuccessful()) {
+
+                throw new ProcessFailedException($process);
+            }
+            
+            var_dump($process->getOutput());
+            die;*/
 
             $rr->success = true;
             $rr->message = 'Процесс обновления запущен';
