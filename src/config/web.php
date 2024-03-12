@@ -8,7 +8,7 @@ return [
         'backendAdmin' => [
             'menu' => [
                 'data' => [
-                    'other' => [
+                    'settings' => [
                         'items' => [
                             [
                                 "name" => ['skeeks/marketplace', "Updated platforms"],
