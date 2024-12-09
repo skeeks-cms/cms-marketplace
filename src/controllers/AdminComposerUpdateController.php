@@ -12,11 +12,10 @@ namespace skeeks\cms\marketplace\controllers;
 use skeeks\cms\backend\BackendAction;
 use skeeks\cms\backend\BackendController;
 use skeeks\cms\components\marketplace\models\PackageModel;
-use skeeks\cms\composer\update\Plugin;
 use skeeks\cms\composer\update\PluginConfig;
 use skeeks\cms\models\Comment;
+use skeeks\cms\rbac\CmsManager;
 use skeeks\sx\helpers\ResponseHelper;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use yii\helpers\FileHelper;
 
 /**
@@ -31,12 +30,8 @@ class AdminComposerUpdateController extends BackendController
         $this->name = \Yii::t('skeeks/marketplace', 'Updated platforms');
         $this->generateAccessActions = false;
 
-        $this->accessCallback = function () {
-            if (!\Yii::$app->skeeks->site->is_default) {
-                return false;
-            }
-            return \Yii::$app->user->can($this->uniqueId);
-        };
+        $this->generateAccessActions = false;
+        $this->permissionName = CmsManager::PERMISSION_ROOT_ACCESS;
 
         parent::init();
     }
@@ -124,7 +119,7 @@ class AdminComposerUpdateController extends BackendController
             $root = \Yii::getAlias('@root');
             $cmd = "cd {$root} && COMPOSER_HOME=.composer php composer.phar self-update --2";
             $cmd2 = "COMPOSER_HOME=.composer php composer.phar update -o --no-interaction >{$fileUpdateSuccessResult} 2>&1 3>{$fileUpdateErrorResult} &";
-            $cmdfull = $cmd . " && " . $cmd2;
+            $cmdfull = $cmd." && ".$cmd2;
 
             $response = [];
             $result = false;
